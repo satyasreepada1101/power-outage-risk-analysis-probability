@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_68abedee68db1d475eadac1e08a6fe8a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style='position:fixed;top:12px;left:55px;z-index:9999;
+                background:white;padding:12px 18px;border-radius:8px;
+                box-shadow:0 2px 8px rgba(0,0,0,0.25);font-family:Arial;'>
+      <b style='font-size:15px'>⚡ India Power Outage Risk Map</b><br>
+      <span style='font-size:11px;color:#555'>
+        Bayesian-Markov Model · States: 6 · Data: 2021–2024
+      </span>
+    </div>
+    
+    
+    <div style='position:fixed;bottom:30px;left:30px;z-index:9999;
+                background:white;padding:10px 14px;border-radius:8px;
+                box-shadow:0 2px 6px rgba(0,0,0,0.2);font-family:Arial;
+                font-size:11px;'>
+      <b>Risk Level</b><br>
+      <span style='color:#e74c3c'>&#9679;</span> HIGH (≥50%)<br>
+      <span style='color:#e67e22'>&#9679;</span> MOD-HIGH (30–50%)<br>
+      <span style='color:#f1c40f'>&#9679;</span> MODERATE (15–30%)<br>
+      <span style='color:#2ecc71'>&#9679;</span> LOW (&lt;15%)<br>
+    </div>
+    
+    
+            <div class="folium-map" id="map_68abedee68db1d475eadac1e08a6fe8a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_68abedee68db1d475eadac1e08a6fe8a = L.map(
+                "map_68abedee68db1d475eadac1e08a6fe8a",
+                {
+                    center: [22.0, 82.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_2e2de531949f598b05c4f0f6c49eee9f = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_2e2de531949f598b05c4f0f6c49eee9f.addTo(map_68abedee68db1d475eadac1e08a6fe8a);
+        
+    
+            var feature_group_36fe4b9cfc79bbf987daf6d41a6d447d = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_f7cd013319c5a8cb4cc7608b415b7fab = L.circleMarker(
+                [10.9, 78.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 21.131393355550927, "stroke": true, "weight": 3}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+        var popup_3d4396a49816fec8fe2959f9616db765 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_e7dc5f882d058b8be9ad9449e9219917 = $(`<div id="html_e7dc5f882d058b8be9ad9449e9219917" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Tamil Nadu</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             2.5%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.013 / 0.949 / 0.038         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.2%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_3d4396a49816fec8fe2959f9616db765.setContent(html_e7dc5f882d058b8be9ad9449e9219917);
+            
+        
+
+        circle_marker_f7cd013319c5a8cb4cc7608b415b7fab.bindPopup(popup_3d4396a49816fec8fe2959f9616db765)
+        ;
+
+        
+    
+    
+            circle_marker_f7cd013319c5a8cb4cc7608b415b7fab.bindTooltip(
+                `<div>
+                     Tamil Nadu: P(Outage)=2.5% [Overall]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b0e11a5ad718744e2b7300ec99322e7c = L.marker(
+                [11.4, 78.7],
+                {
+}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+            var div_icon_01ae6546aaf1011469aaa4177391f7ba = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eTamil Nadu\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_b0e11a5ad718744e2b7300ec99322e7c.setIcon(div_icon_01ae6546aaf1011469aaa4177391f7ba);
+            
+    
+            var circle_marker_725c79ed0bce645a70d8214dfd067edd = L.circleMarker(
+                [15.3, 75.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 23.367704019995834, "stroke": true, "weight": 3}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+        var popup_344bac587ed7f26e1f1bcce1fd06c5bf = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_a2e04b7846ed69ab40455c0ad8c61ac6 = $(`<div id="html_a2e04b7846ed69ab40455c0ad8c61ac6" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Karnataka</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             7.5%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.048 / 0.866 / 0.086         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.0%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.7%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.1%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_344bac587ed7f26e1f1bcce1fd06c5bf.setContent(html_a2e04b7846ed69ab40455c0ad8c61ac6);
+            
+        
+
+        circle_marker_725c79ed0bce645a70d8214dfd067edd.bindPopup(popup_344bac587ed7f26e1f1bcce1fd06c5bf)
+        ;
+
+        
+    
+    
+            circle_marker_725c79ed0bce645a70d8214dfd067edd.bindTooltip(
+                `<div>
+                     Karnataka: P(Outage)=7.5% [Overall]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_74b7c847f9747a066ed0dd64f1d7fd4f = L.marker(
+                [15.8, 75.7],
+                {
+}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+            var div_icon_c7456398ee71dbfc48c7389626117594 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eKarnataka\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_74b7c847f9747a066ed0dd64f1d7fd4f.setIcon(div_icon_c7456398ee71dbfc48c7389626117594);
+            
+    
+            var circle_marker_ee0f779704ff4d26854cab4a9f9906cb = L.circleMarker(
+                [27.0, 74.2],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 22.50008602374505, "stroke": true, "weight": 3}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+        var popup_51e2ac5bee4985d4bc9819ed4b668f18 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_2dae9151350b04d8c38c4b6873c33e6c = $(`<div id="html_2dae9151350b04d8c38c4b6873c33e6c" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Rajasthan</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             5.6%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.042 / 0.877 / 0.080         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>8.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>6.1%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.5%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.6%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_51e2ac5bee4985d4bc9819ed4b668f18.setContent(html_2dae9151350b04d8c38c4b6873c33e6c);
+            
+        
+
+        circle_marker_ee0f779704ff4d26854cab4a9f9906cb.bindPopup(popup_51e2ac5bee4985d4bc9819ed4b668f18)
+        ;
+
+        
+    
+    
+            circle_marker_ee0f779704ff4d26854cab4a9f9906cb.bindTooltip(
+                `<div>
+                     Rajasthan: P(Outage)=5.6% [Overall]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2ec8569c9f195e729dfa293fa122e13b = L.marker(
+                [27.5, 74.2],
+                {
+}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+            var div_icon_ba32611985fd7c32ccd704359e657fc0 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eRajasthan\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_2ec8569c9f195e729dfa293fa122e13b.setIcon(div_icon_ba32611985fd7c32ccd704359e657fc0);
+            
+    
+            var circle_marker_e343eae66c6e352429ba8de6c254c1de = L.circleMarker(
+                [29.2, 76.1],
+                {"bubblingMouseEvents": true, "color": "#f1c40f", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 27.08992387002708, "stroke": true, "weight": 3}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+        var popup_b34642120a042e2b784e475db12c9e74 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_2d0983d6b41bf3793020531201c48bd2 = $(`<div id="html_2d0983d6b41bf3793020531201c48bd2" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#f1c40f;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Haryana</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           MODERATE         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#f1c40f;font-size:14px;font-weight:bold'>             15.8%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.208 / 0.629 / 0.163         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>21.8%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>16.4%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.4%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>15.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_b34642120a042e2b784e475db12c9e74.setContent(html_2d0983d6b41bf3793020531201c48bd2);
+            
+        
+
+        circle_marker_e343eae66c6e352429ba8de6c254c1de.bindPopup(popup_b34642120a042e2b784e475db12c9e74)
+        ;
+
+        
+    
+    
+            circle_marker_e343eae66c6e352429ba8de6c254c1de.bindTooltip(
+                `<div>
+                     Haryana: P(Outage)=15.8% [Overall]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_e9dace12625e7252c344a5832f804f56 = L.marker(
+                [29.7, 76.1],
+                {
+}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+            var div_icon_3015f901fc5a9577360be2fbd80d4d02 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eHaryana\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_e9dace12625e7252c344a5832f804f56.setIcon(div_icon_3015f901fc5a9577360be2fbd80d4d02);
+            
+    
+            var circle_marker_b947d805af63d1e40765f3eea007e55a = L.circleMarker(
+                [26.2, 92.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 21.71031962091231, "stroke": true, "weight": 3}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+        var popup_d3058dd1d8998a8e0e450f1b70a9f7fd = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_9071a0edb39879bb5041e83e12a53a55 = $(`<div id="html_9071a0edb39879bb5041e83e12a53a55" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Assam</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             3.8%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.138 / 0.797 / 0.065         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>4.9%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.0%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_d3058dd1d8998a8e0e450f1b70a9f7fd.setContent(html_9071a0edb39879bb5041e83e12a53a55);
+            
+        
+
+        circle_marker_b947d805af63d1e40765f3eea007e55a.bindPopup(popup_d3058dd1d8998a8e0e450f1b70a9f7fd)
+        ;
+
+        
+    
+    
+            circle_marker_b947d805af63d1e40765f3eea007e55a.bindTooltip(
+                `<div>
+                     Assam: P(Outage)=3.8% [Overall]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_6be64ea415291e80b43a3d927a51d608 = L.marker(
+                [26.7, 92.9],
+                {
+}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+            var div_icon_b58c3321b42cd5c55ed3c39786aee11d = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eAssam\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_6be64ea415291e80b43a3d927a51d608.setIcon(div_icon_b58c3321b42cd5c55ed3c39786aee11d);
+            
+    
+            var circle_marker_d37a242c4bfb0fdfc3861234c2adb6a5 = L.circleMarker(
+                [23.4, 87.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 25.483753801291396, "stroke": true, "weight": 3}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+        var popup_410db1b0595bccf202a450a07c33bcc2 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_15e80bb550eaa3bb1fcea9d02b3e7aba = $(`<div id="html_15e80bb550eaa3bb1fcea9d02b3e7aba" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>West Bengal</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             12.2%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.141 / 0.727 / 0.131         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>20.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.8%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>12.2%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_410db1b0595bccf202a450a07c33bcc2.setContent(html_15e80bb550eaa3bb1fcea9d02b3e7aba);
+            
+        
+
+        circle_marker_d37a242c4bfb0fdfc3861234c2adb6a5.bindPopup(popup_410db1b0595bccf202a450a07c33bcc2)
+        ;
+
+        
+    
+    
+            circle_marker_d37a242c4bfb0fdfc3861234c2adb6a5.bindTooltip(
+                `<div>
+                     West Bengal: P(Outage)=12.2% [Overall]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f61190fc02664063ffdec0e7cadf99bf = L.marker(
+                [23.9, 87.9],
+                {
+}
+            ).addTo(feature_group_36fe4b9cfc79bbf987daf6d41a6d447d);
+        
+    
+            var div_icon_34b9d5bad17dcc195d22ae19217bc909 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eWest Bengal\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_f61190fc02664063ffdec0e7cadf99bf.setIcon(div_icon_34b9d5bad17dcc195d22ae19217bc909);
+            
+    
+            feature_group_36fe4b9cfc79bbf987daf6d41a6d447d.addTo(map_68abedee68db1d475eadac1e08a6fe8a);
+        
+    
+            var feature_group_348c2af6989b8eea19017089ac462cd9 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_a39bbb2b0d4b891c7d0f353fd7025112 = L.circleMarker(
+                [10.9, 78.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 21.44453602882306, "stroke": true, "weight": 3}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+        var popup_4ab789003006b4b2f81af5fbd161d581 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_d79c204647cc88a8745681f4bef10da3 = $(`<div id="html_d79c204647cc88a8745681f4bef10da3" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Tamil Nadu</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             3.2%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.013 / 0.949 / 0.038         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.2%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_4ab789003006b4b2f81af5fbd161d581.setContent(html_d79c204647cc88a8745681f4bef10da3);
+            
+        
+
+        circle_marker_a39bbb2b0d4b891c7d0f353fd7025112.bindPopup(popup_4ab789003006b4b2f81af5fbd161d581)
+        ;
+
+        
+    
+    
+            circle_marker_a39bbb2b0d4b891c7d0f353fd7025112.bindTooltip(
+                `<div>
+                     Tamil Nadu: P(Outage)=3.2% [Summer]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ca39b8971e66fd43b16e63aa7fa93d38 = L.marker(
+                [11.4, 78.7],
+                {
+}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+            var div_icon_36f0553c502b101a2be3f607e304b0ab = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eTamil Nadu\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_ca39b8971e66fd43b16e63aa7fa93d38.setIcon(div_icon_36f0553c502b101a2be3f607e304b0ab);
+            
+    
+            var circle_marker_58213b969331cb021a22c80d6e4add86 = L.circleMarker(
+                [15.3, 75.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 24.96788831064852, "stroke": true, "weight": 3}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+        var popup_3c439e5c42f7141771d61d49a5457334 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_6be5e334c4303b1c156438bef51ea598 = $(`<div id="html_6be5e334c4303b1c156438bef51ea598" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Karnataka</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             11.0%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.048 / 0.866 / 0.086         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.0%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.7%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.1%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_3c439e5c42f7141771d61d49a5457334.setContent(html_6be5e334c4303b1c156438bef51ea598);
+            
+        
+
+        circle_marker_58213b969331cb021a22c80d6e4add86.bindPopup(popup_3c439e5c42f7141771d61d49a5457334)
+        ;
+
+        
+    
+    
+            circle_marker_58213b969331cb021a22c80d6e4add86.bindTooltip(
+                `<div>
+                     Karnataka: P(Outage)=11.0% [Summer]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_52f496cb86e040a3fa75ed3e3afd0f0b = L.marker(
+                [15.8, 75.7],
+                {
+}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+            var div_icon_8bee233f9c24848a60f13b5f75e98fc3 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eKarnataka\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_52f496cb86e040a3fa75ed3e3afd0f0b.setIcon(div_icon_8bee233f9c24848a60f13b5f75e98fc3);
+            
+    
+            var circle_marker_fba554c4b8494efdce8562011fd6a686 = L.circleMarker(
+                [27.0, 74.2],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 23.643843474779825, "stroke": true, "weight": 3}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+        var popup_a1da9c1a675509fafadd3fbd80524550 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_9d8f47d458d5dfd974869b952a29ff7f = $(`<div id="html_9d8f47d458d5dfd974869b952a29ff7f" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Rajasthan</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             8.1%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.042 / 0.877 / 0.080         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>8.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>6.1%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.5%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.6%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_a1da9c1a675509fafadd3fbd80524550.setContent(html_9d8f47d458d5dfd974869b952a29ff7f);
+            
+        
+
+        circle_marker_fba554c4b8494efdce8562011fd6a686.bindPopup(popup_a1da9c1a675509fafadd3fbd80524550)
+        ;
+
+        
+    
+    
+            circle_marker_fba554c4b8494efdce8562011fd6a686.bindTooltip(
+                `<div>
+                     Rajasthan: P(Outage)=8.1% [Summer]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_08327db2f1a59349a26824f40e0db169 = L.marker(
+                [27.5, 74.2],
+                {
+}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+            var div_icon_a5f9cf281880d83e9ee960b8ecebcd75 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eRajasthan\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_08327db2f1a59349a26824f40e0db169.setIcon(div_icon_a5f9cf281880d83e9ee960b8ecebcd75);
+            
+    
+            var circle_marker_95718d5421e3c0ec42cd453d5fa6565c = L.circleMarker(
+                [29.2, 76.1],
+                {"bubblingMouseEvents": true, "color": "#f1c40f", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 29.811451961569254, "stroke": true, "weight": 3}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+        var popup_e94b825683a02e7175d45e37ea03286f = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_3505976d6745b96a153a2d822e83fc49 = $(`<div id="html_3505976d6745b96a153a2d822e83fc49" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#f1c40f;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Haryana</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           MODERATE         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#f1c40f;font-size:14px;font-weight:bold'>             21.8%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.208 / 0.629 / 0.163         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>21.8%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>16.4%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.4%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>15.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_e94b825683a02e7175d45e37ea03286f.setContent(html_3505976d6745b96a153a2d822e83fc49);
+            
+        
+
+        circle_marker_95718d5421e3c0ec42cd453d5fa6565c.bindPopup(popup_e94b825683a02e7175d45e37ea03286f)
+        ;
+
+        
+    
+    
+            circle_marker_95718d5421e3c0ec42cd453d5fa6565c.bindTooltip(
+                `<div>
+                     Haryana: P(Outage)=21.8% [Summer]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_47bbbc9fb56595cdd65d0764ae0aad62 = L.marker(
+                [29.7, 76.1],
+                {
+}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+            var div_icon_9b55a6f1a47f88f3f534c9564b0c7f03 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eHaryana\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_47bbbc9fb56595cdd65d0764ae0aad62.setIcon(div_icon_9b55a6f1a47f88f3f534c9564b0c7f03);
+            
+    
+            var circle_marker_2ef44373b4ce69a1cde562c8d84e1627 = L.circleMarker(
+                [26.2, 92.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 22.211553642914332, "stroke": true, "weight": 3}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+        var popup_4f26fc12668f83bea57c1014802253b1 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_363df425baeb89f9a3607a93af72ec0e = $(`<div id="html_363df425baeb89f9a3607a93af72ec0e" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Assam</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             4.9%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.138 / 0.797 / 0.065         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>4.9%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.0%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_4f26fc12668f83bea57c1014802253b1.setContent(html_363df425baeb89f9a3607a93af72ec0e);
+            
+        
+
+        circle_marker_2ef44373b4ce69a1cde562c8d84e1627.bindPopup(popup_4f26fc12668f83bea57c1014802253b1)
+        ;
+
+        
+    
+    
+            circle_marker_2ef44373b4ce69a1cde562c8d84e1627.bindTooltip(
+                `<div>
+                     Assam: P(Outage)=4.9% [Summer]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1f29221203fb03c885615b57318e43fa = L.marker(
+                [26.7, 92.9],
+                {
+}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+            var div_icon_e0a4f807e29e43687ce3b69b1d1e77bb = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eAssam\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_1f29221203fb03c885615b57318e43fa.setIcon(div_icon_e0a4f807e29e43687ce3b69b1d1e77bb);
+            
+    
+            var circle_marker_9b38b7595d9d69e29a2aa280943abd5b = L.circleMarker(
+                [23.4, 87.9],
+                {"bubblingMouseEvents": true, "color": "#f1c40f", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 29.047349079263412, "stroke": true, "weight": 3}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+        var popup_1f6403f9cec98de94d8f2321c21c1a08 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_e5f44a94d7f74cc66785465453b1c2f1 = $(`<div id="html_e5f44a94d7f74cc66785465453b1c2f1" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#f1c40f;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>West Bengal</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           MODERATE         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#f1c40f;font-size:14px;font-weight:bold'>             20.1%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.141 / 0.727 / 0.131         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>20.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.8%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>12.2%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_1f6403f9cec98de94d8f2321c21c1a08.setContent(html_e5f44a94d7f74cc66785465453b1c2f1);
+            
+        
+
+        circle_marker_9b38b7595d9d69e29a2aa280943abd5b.bindPopup(popup_1f6403f9cec98de94d8f2321c21c1a08)
+        ;
+
+        
+    
+    
+            circle_marker_9b38b7595d9d69e29a2aa280943abd5b.bindTooltip(
+                `<div>
+                     West Bengal: P(Outage)=20.1% [Summer]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_369a37060e794fa000c63ff22fc1cc8c = L.marker(
+                [23.9, 87.9],
+                {
+}
+            ).addTo(feature_group_348c2af6989b8eea19017089ac462cd9);
+        
+    
+            var div_icon_3ee9164afaa47a541487a9b2a12c90ab = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eWest Bengal\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_369a37060e794fa000c63ff22fc1cc8c.setIcon(div_icon_3ee9164afaa47a541487a9b2a12c90ab);
+            
+    
+            var feature_group_9ef4c71e962a8d943bf48ee8fb0c6852 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_9a159636015ce7c5584893529ab4f789 = L.circleMarker(
+                [10.9, 78.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 21.045798865069358, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+        var popup_08e32f90a9c8c5855244ad73744af0cd = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_2432d1b298c0b9908dfb240f19c89e94 = $(`<div id="html_2432d1b298c0b9908dfb240f19c89e94" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Tamil Nadu</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             2.3%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.013 / 0.949 / 0.038         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.2%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_08e32f90a9c8c5855244ad73744af0cd.setContent(html_2432d1b298c0b9908dfb240f19c89e94);
+            
+        
+
+        circle_marker_9a159636015ce7c5584893529ab4f789.bindPopup(popup_08e32f90a9c8c5855244ad73744af0cd)
+        ;
+
+        
+    
+    
+            circle_marker_9a159636015ce7c5584893529ab4f789.bindTooltip(
+                `<div>
+                     Tamil Nadu: P(Outage)=2.3% [Monsoon]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_e11b4f1d8aacab7e1ea648f0a9d9440d = L.marker(
+                [11.4, 78.7],
+                {
+}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+            var div_icon_252ab5c981b092cce94e97183ea934d4 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eTamil Nadu\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_e11b4f1d8aacab7e1ea648f0a9d9440d.setIcon(div_icon_252ab5c981b092cce94e97183ea934d4);
+            
+    
+            var circle_marker_59a2e36094eb0f92e31aa918eb89425a = L.circleMarker(
+                [15.3, 75.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 23.457401639344262, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+        var popup_4fa585419e5d5ac56c3e029051005c04 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_e11f09a32a0b967e1f43cb3e4d2ac8f5 = $(`<div id="html_e11f09a32a0b967e1f43cb3e4d2ac8f5" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Karnataka</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             7.7%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.048 / 0.866 / 0.086         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.0%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.7%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.1%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_4fa585419e5d5ac56c3e029051005c04.setContent(html_e11f09a32a0b967e1f43cb3e4d2ac8f5);
+            
+        
+
+        circle_marker_59a2e36094eb0f92e31aa918eb89425a.bindPopup(popup_4fa585419e5d5ac56c3e029051005c04)
+        ;
+
+        
+    
+    
+            circle_marker_59a2e36094eb0f92e31aa918eb89425a.bindTooltip(
+                `<div>
+                     Karnataka: P(Outage)=7.7% [Monsoon]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f0e1de1026b5a3d39ac28a793d5b323a = L.marker(
+                [15.8, 75.7],
+                {
+}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+            var div_icon_c83a559a55676e922c0d0679d921f2a5 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eKarnataka\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_f0e1de1026b5a3d39ac28a793d5b323a.setIcon(div_icon_c83a559a55676e922c0d0679d921f2a5);
+            
+    
+            var circle_marker_bd4e6f141577a8c55d9eff668a9cf847 = L.circleMarker(
+                [27.0, 74.2],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 22.745519230769233, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+        var popup_e89cf84a85591ac2f94b1d913dec94a0 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_e63c7862c5563109d13d2426a81762ba = $(`<div id="html_e63c7862c5563109d13d2426a81762ba" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Rajasthan</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             6.1%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.042 / 0.877 / 0.080         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>8.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>6.1%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.5%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.6%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_e89cf84a85591ac2f94b1d913dec94a0.setContent(html_e63c7862c5563109d13d2426a81762ba);
+            
+        
+
+        circle_marker_bd4e6f141577a8c55d9eff668a9cf847.bindPopup(popup_e89cf84a85591ac2f94b1d913dec94a0)
+        ;
+
+        
+    
+    
+            circle_marker_bd4e6f141577a8c55d9eff668a9cf847.bindTooltip(
+                `<div>
+                     Rajasthan: P(Outage)=6.1% [Monsoon]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_dcd20f82b532a56b4c3f8dcec9b07b75 = L.marker(
+                [27.5, 74.2],
+                {
+}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+            var div_icon_86e627abf84385fca89b9d76a6e41b11 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eRajasthan\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_dcd20f82b532a56b4c3f8dcec9b07b75.setIcon(div_icon_86e627abf84385fca89b9d76a6e41b11);
+            
+    
+            var circle_marker_cac8f965cd818df3d7f9fd643cc6646a = L.circleMarker(
+                [29.2, 76.1],
+                {"bubblingMouseEvents": true, "color": "#f1c40f", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f1c40f", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 27.365515447667086, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+        var popup_73a229b0a4d7cc43e8b3f5d4e965ea7e = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_12050f0236239e68315a5181fe833ba9 = $(`<div id="html_12050f0236239e68315a5181fe833ba9" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#f1c40f;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Haryana</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           MODERATE         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#f1c40f;font-size:14px;font-weight:bold'>             16.4%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.208 / 0.629 / 0.163         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>21.8%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>16.4%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.4%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>15.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_73a229b0a4d7cc43e8b3f5d4e965ea7e.setContent(html_12050f0236239e68315a5181fe833ba9);
+            
+        
+
+        circle_marker_cac8f965cd818df3d7f9fd643cc6646a.bindPopup(popup_73a229b0a4d7cc43e8b3f5d4e965ea7e)
+        ;
+
+        
+    
+    
+            circle_marker_cac8f965cd818df3d7f9fd643cc6646a.bindTooltip(
+                `<div>
+                     Haryana: P(Outage)=16.4% [Monsoon]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2e78ea842f4efb2bb6cfe9f88ff75dad = L.marker(
+                [29.7, 76.1],
+                {
+}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+            var div_icon_d880e8ab51264819ad82a12d4bf000eb = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eHaryana\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_2e78ea842f4efb2bb6cfe9f88ff75dad.setIcon(div_icon_d880e8ab51264819ad82a12d4bf000eb);
+            
+    
+            var circle_marker_59e85e6446c34dbfe1cc3fb749dd7ca8 = L.circleMarker(
+                [26.2, 92.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 22.23486286254729, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+        var popup_9b7d84add4b59cfabcc1a8662c643397 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_6816fe12a4762f61470be074d7a4e87e = $(`<div id="html_6816fe12a4762f61470be074d7a4e87e" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Assam</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             5.0%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.138 / 0.797 / 0.065         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>4.9%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.0%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_9b7d84add4b59cfabcc1a8662c643397.setContent(html_6816fe12a4762f61470be074d7a4e87e);
+            
+        
+
+        circle_marker_59e85e6446c34dbfe1cc3fb749dd7ca8.bindPopup(popup_9b7d84add4b59cfabcc1a8662c643397)
+        ;
+
+        
+    
+    
+            circle_marker_59e85e6446c34dbfe1cc3fb749dd7ca8.bindTooltip(
+                `<div>
+                     Assam: P(Outage)=5.0% [Monsoon]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ab05a16694b1cd88d337e7a4221f75b0 = L.marker(
+                [26.7, 92.9],
+                {
+}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+            var div_icon_f932ff7ae22d8d4f7a11704b0adf93d2 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eAssam\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_ab05a16694b1cd88d337e7a4221f75b0.setIcon(div_icon_f932ff7ae22d8d4f7a11704b0adf93d2);
+            
+    
+            var circle_marker_592da30c4f2599440a6deb89d5ab7a37 = L.circleMarker(
+                [23.4, 87.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 25.106336696090793, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+        var popup_88910d2e0393f967b4efa528fe667eb8 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_ad585da8d7f17a0392821d0aab504dbf = $(`<div id="html_ad585da8d7f17a0392821d0aab504dbf" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>West Bengal</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             11.3%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.141 / 0.727 / 0.131         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>20.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.8%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>12.2%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_88910d2e0393f967b4efa528fe667eb8.setContent(html_ad585da8d7f17a0392821d0aab504dbf);
+            
+        
+
+        circle_marker_592da30c4f2599440a6deb89d5ab7a37.bindPopup(popup_88910d2e0393f967b4efa528fe667eb8)
+        ;
+
+        
+    
+    
+            circle_marker_592da30c4f2599440a6deb89d5ab7a37.bindTooltip(
+                `<div>
+                     West Bengal: P(Outage)=11.3% [Monsoon]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_9e7102a9243f2d94342fdd0aac145ed7 = L.marker(
+                [23.9, 87.9],
+                {
+}
+            ).addTo(feature_group_9ef4c71e962a8d943bf48ee8fb0c6852);
+        
+    
+            var div_icon_5aa9d1373f26875958ac5200bcbc6020 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eWest Bengal\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_9e7102a9243f2d94342fdd0aac145ed7.setIcon(div_icon_5aa9d1373f26875958ac5200bcbc6020);
+            
+    
+            var feature_group_d459355c73978924d628f290ad555036 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_dcad4fd83571e3f2036f171bd906f283 = L.circleMarker(
+                [10.9, 78.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 21.001504069175994, "stroke": true, "weight": 3}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+        var popup_311a509d695163eaf45a918438b6632e = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_35583840ba4b61394f120d07f0a471cb = $(`<div id="html_35583840ba4b61394f120d07f0a471cb" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Tamil Nadu</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             2.2%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.013 / 0.949 / 0.038         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.2%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_311a509d695163eaf45a918438b6632e.setContent(html_35583840ba4b61394f120d07f0a471cb);
+            
+        
+
+        circle_marker_dcad4fd83571e3f2036f171bd906f283.bindPopup(popup_311a509d695163eaf45a918438b6632e)
+        ;
+
+        
+    
+    
+            circle_marker_dcad4fd83571e3f2036f171bd906f283.bindTooltip(
+                `<div>
+                     Tamil Nadu: P(Outage)=2.2% [Winter]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1b70a0e405ed2146c05c0cf64247c2a4 = L.marker(
+                [11.4, 78.7],
+                {
+}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+            var div_icon_5594c5b9d727a588658c91e8cb293933 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eTamil Nadu\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_1b70a0e405ed2146c05c0cf64247c2a4.setIcon(div_icon_5594c5b9d727a588658c91e8cb293933);
+            
+    
+            var circle_marker_c40ec51a4db765f3ee9b4ebdb6be8a93 = L.circleMarker(
+                [15.3, 75.7],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 22.278746439471007, "stroke": true, "weight": 3}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+        var popup_45d24943cd1e745dc71cc180f7aee38a = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_3e8bec91f7f20c18f24334d927ec1b53 = $(`<div id="html_3e8bec91f7f20c18f24334d927ec1b53" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Karnataka</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             5.1%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.048 / 0.866 / 0.086         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.0%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.7%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.1%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.5%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_45d24943cd1e745dc71cc180f7aee38a.setContent(html_3e8bec91f7f20c18f24334d927ec1b53);
+            
+        
+
+        circle_marker_c40ec51a4db765f3ee9b4ebdb6be8a93.bindPopup(popup_45d24943cd1e745dc71cc180f7aee38a)
+        ;
+
+        
+    
+    
+            circle_marker_c40ec51a4db765f3ee9b4ebdb6be8a93.bindTooltip(
+                `<div>
+                     Karnataka: P(Outage)=5.1% [Winter]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_92eefea1430d817d630723fcd2297474 = L.marker(
+                [15.8, 75.7],
+                {
+}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+            var div_icon_4d8f3beeadc1d4c03946e9f5f76c6735 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eKarnataka\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_92eefea1430d817d630723fcd2297474.setIcon(div_icon_4d8f3beeadc1d4c03946e9f5f76c6735);
+            
+    
+            var circle_marker_334cb669ee8a7d8a579cf4e4af06f818 = L.circleMarker(
+                [27.0, 74.2],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 21.575462360122074, "stroke": true, "weight": 3}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+        var popup_05f0d677727713663b701e44425c1ca4 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_ea25da6e9f45fb1bef4e3b2c92b38b73 = $(`<div id="html_ea25da6e9f45fb1bef4e3b2c92b38b73" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Rajasthan</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             3.5%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.042 / 0.877 / 0.080         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>8.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>6.1%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.5%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.6%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_05f0d677727713663b701e44425c1ca4.setContent(html_ea25da6e9f45fb1bef4e3b2c92b38b73);
+            
+        
+
+        circle_marker_334cb669ee8a7d8a579cf4e4af06f818.bindPopup(popup_05f0d677727713663b701e44425c1ca4)
+        ;
+
+        
+    
+    
+            circle_marker_334cb669ee8a7d8a579cf4e4af06f818.bindTooltip(
+                `<div>
+                     Rajasthan: P(Outage)=3.5% [Winter]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_06abb2c7df494ee0a71226dfccb7a457 = L.marker(
+                [27.5, 74.2],
+                {
+}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+            var div_icon_d3e0ee700d195b295c309f5c12ac0850 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eRajasthan\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_06abb2c7df494ee0a71226dfccb7a457.setIcon(div_icon_d3e0ee700d195b295c309f5c12ac0850);
+            
+    
+            var circle_marker_71f26dcdde27148162e98d2e9138f354 = L.circleMarker(
+                [29.2, 76.1],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 25.138613173957275, "stroke": true, "weight": 3}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+        var popup_9412795526ae40a205d494198574540d = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_c4fda917af0b130cfe69b78030a03050 = $(`<div id="html_c4fda917af0b130cfe69b78030a03050" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Haryana</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             11.4%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.208 / 0.629 / 0.163         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>21.8%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>16.4%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.4%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>15.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_9412795526ae40a205d494198574540d.setContent(html_c4fda917af0b130cfe69b78030a03050);
+            
+        
+
+        circle_marker_71f26dcdde27148162e98d2e9138f354.bindPopup(popup_9412795526ae40a205d494198574540d)
+        ;
+
+        
+    
+    
+            circle_marker_71f26dcdde27148162e98d2e9138f354.bindTooltip(
+                `<div>
+                     Haryana: P(Outage)=11.4% [Winter]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_5ec716e48284ba36c760751be52af6ef = L.marker(
+                [29.7, 76.1],
+                {
+}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+            var div_icon_1148850179ace8bd791f8f5c736a73ee = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eHaryana\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_5ec716e48284ba36c760751be52af6ef.setIcon(div_icon_1148850179ace8bd791f8f5c736a73ee);
+            
+    
+            var circle_marker_ee80a9a3d33edb1109b4e1d595dc44d3 = L.circleMarker(
+                [26.2, 92.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 20.96872914547304, "stroke": true, "weight": 3}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+        var popup_0d0ddd8b964955ce6309958c28d9ab62 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_e965122b72d54b3a1acfd431bffb5e6c = $(`<div id="html_e965122b72d54b3a1acfd431bffb5e6c" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>Assam</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             2.2%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.138 / 0.797 / 0.065         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>4.9%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>5.0%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>2.2%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>3.8%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_0d0ddd8b964955ce6309958c28d9ab62.setContent(html_e965122b72d54b3a1acfd431bffb5e6c);
+            
+        
+
+        circle_marker_ee80a9a3d33edb1109b4e1d595dc44d3.bindPopup(popup_0d0ddd8b964955ce6309958c28d9ab62)
+        ;
+
+        
+    
+    
+            circle_marker_ee80a9a3d33edb1109b4e1d595dc44d3.bindTooltip(
+                `<div>
+                     Assam: P(Outage)=2.2% [Winter]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d734f006ec4d6c8964b51a4f33f9a6e3 = L.marker(
+                [26.7, 92.9],
+                {
+}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+            var div_icon_dbf500e6797933f6faf7046c282c22cd = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eAssam\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_d734f006ec4d6c8964b51a4f33f9a6e3.setIcon(div_icon_dbf500e6797933f6faf7046c282c22cd);
+            
+    
+            var circle_marker_41d6905b98d00c92a8e64d3f7eca2591 = L.circleMarker(
+                [23.4, 87.9],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.55, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 0.9, "radius": 23.524269074262463, "stroke": true, "weight": 3}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+        var popup_d538a94fb86011e5775cd102e6899147 = L.popup({
+  "maxWidth": 310,
+});
+
+        
+            
+                var html_2b497654e064eaaf0c65c2be6f89f500 = $(`<div id="html_2b497654e064eaaf0c65c2be6f89f500" style="width: 100.0%; height: 100.0%;">     <div style='font-family:Arial,sans-serif;width:290px;font-size:12px'>       <div style='background:#2ecc71;padding:10px;border-radius:6px 6px 0 0;'>         <span style='color:white;font-size:15px;font-weight:bold'>West Bengal</span>         <span style='color:white;float:right;font-size:18px;font-weight:bold'>           LOW         </span>       </div>       <div style='padding:10px;border:1px solid #ddd;border-top:none;                   border-radius:0 0 6px 6px'>         <p style='margin:4px 0'><b>Overall Outage Risk:</b>           <span style='color:#2ecc71;font-size:14px;font-weight:bold'>             7.8%           </span>         </p>         <p style='margin:4px 0'><b>Steady-State (Normal / Stressed / Outage):</b><br/>           0.141 / 0.727 / 0.131         </p>         <p style='margin:4px 0'><b>Seasonal Breakdown:</b></p>         <table style='border-collapse:collapse;width:100%'>           <tr style='background:#f5f5f5'>             <th style='padding:3px 8px;text-align:left'>Season</th>             <th style='padding:3px 8px;text-align:left'>P(Outage)</th>           </tr>           <tr><td style='padding:3px 8px'>Summer</td><td style='padding:3px 8px;color:#f1c40f;font-weight:bold'>20.1%</td></tr><tr><td style='padding:3px 8px'>Monsoon</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>11.3%</td></tr><tr><td style='padding:3px 8px'>Winter</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>7.8%</td></tr><tr><td style='padding:3px 8px'>Overall</td><td style='padding:3px 8px;color:#2ecc71;font-weight:bold'>12.2%</td></tr>         </table>         <p style='margin:6px 0 2px;color:#666;font-size:10px'>           Based on 4801 days of data (2021–2024) · Markov + Bayesian model         </p>       </div>     </div>     </div>`)[0];
+                popup_d538a94fb86011e5775cd102e6899147.setContent(html_2b497654e064eaaf0c65c2be6f89f500);
+            
+        
+
+        circle_marker_41d6905b98d00c92a8e64d3f7eca2591.bindPopup(popup_d538a94fb86011e5775cd102e6899147)
+        ;
+
+        
+    
+    
+            circle_marker_41d6905b98d00c92a8e64d3f7eca2591.bindTooltip(
+                `<div>
+                     West Bengal: P(Outage)=7.8% [Winter]
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_fd93ff96a99ef4bc6e09a5bb22ef4f2c = L.marker(
+                [23.9, 87.9],
+                {
+}
+            ).addTo(feature_group_d459355c73978924d628f290ad555036);
+        
+    
+            var div_icon_84d56a97ad71f373d32f5c2f7933ae16 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:9px;font-family:Arial;font-weight:bold;color:#333;white-space:nowrap;text-shadow:1px 1px 2px white\u0027\u003eWest Bengal\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "iconAnchor": [60, 0],
+  "className": "empty",
+});
+        
+    
+                marker_fd93ff96a99ef4bc6e09a5bb22ef4f2c.setIcon(div_icon_84d56a97ad71f373d32f5c2f7933ae16);
+            
+    
+            var layer_control_87d46708ffa007489213e4e484f87f8f_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_2e2de531949f598b05c4f0f6c49eee9f,
+                },
+                overlays :  {
+                    "Overall" : feature_group_36fe4b9cfc79bbf987daf6d41a6d447d,
+                    "Summer" : feature_group_348c2af6989b8eea19017089ac462cd9,
+                    "Monsoon" : feature_group_9ef4c71e962a8d943bf48ee8fb0c6852,
+                    "Winter" : feature_group_d459355c73978924d628f290ad555036,
+                },
+            };
+            let layer_control_87d46708ffa007489213e4e484f87f8f = L.control.layers(
+                layer_control_87d46708ffa007489213e4e484f87f8f_layers.base_layers,
+                layer_control_87d46708ffa007489213e4e484f87f8f_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_68abedee68db1d475eadac1e08a6fe8a);
+
+        
+</script>
+</html>
