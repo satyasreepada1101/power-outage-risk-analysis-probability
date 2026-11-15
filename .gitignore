@@ -1,18 +1,22 @@
-# Python
-__pycache__/
-*.py[cod]
+# Python environments and caches
 .venv/
 venv/
+env/
+__pycache__/
+*.py[cod]
 
-# MATLAB autosaves and local files
+# Local tooling and logs
+.pytest_cache/
+.mypy_cache/
+.coverage
+*.log
+
+# MATLAB temporary/autosave files
 *.asv
+*.m~
 
-# Local editor and operating-system files
-.vscode/
-.idea/
+# OS/editor files
 .DS_Store
 Thumbs.db
-
-# Temporary output
-*.log
-*.tmp
+.vscode/
+.idea/

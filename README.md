@@ -1,54 +1,50 @@
 # Power Grid Outage-Risk Modeling
 
-A research project exploring weather- and demand-related grid stress across six Indian states. It combines rule-based stress classification with Markov-chain and Bayesian calculations, then produces Python and MATLAB visualizations.
+An academic Probability and Random Processes mini-project that models weather- and demand-related grid stress across six Indian states:
+**Assam, Haryana, Karnataka, Rajasthan, Tamil Nadu, and West Bengal**.
 
-> **Scope:** This is an academic prototype, not an operational forecasting tool. Its “outage” class is inferred from demand and weather stress thresholds; the project does not use a verified record of actual outage events. Results should not be interpreted as validated outage forecasts.
+The project combines rule-based state classification, Markov chains, Bayesian updating, Poisson counts, and exponential duration estimates. It includes both Python and MATLAB analysis paths.
 
-## What it does
+> **Important:** This is a research prototype, not an operational forecasting system. The `Outage` label is inferred from weather and demand stress thresholds; it is not a verified record of real outage events.
 
-- Collects daily weather data from NASA POWER and state-level demand data from the POSOCO/GRID-INDIA dataset.
-- Classifies grid conditions as **Normal**, **Stressed**, or **Outage** using configurable weather and demand thresholds.
-- Builds global and seasonal Markov transition matrices and estimates steady-state probabilities.
-- Applies a Bayesian weather adjustment and uses Poisson and exponential distributions for illustrative outage-count and duration estimates.
-- Generates summary plots, state-specific MATLAB plots, prediction dashboards, and an interactive map.
+## Workflow
 
-The six states in the supplied configuration are Assam, Haryana, Karnataka, Rajasthan, Tamil Nadu, and West Bengal.
-
-## Results preview
-
-Example Markov-chain trajectories produced by the Python pipeline:
-
-![Markov state-probability trajectories for the six states](plots/03_markov_trajectory_all_states.png)
-
-The repository also includes an [interactive risk map](plots/india_power_outage_risk_map.html) and additional Python and MATLAB figures.
+1. Fetch daily weather data from NASA POWER.
+2. Fetch and filter state-level demand data from POSOCO/GRID-INDIA.
+3. Classify each state-day as `Normal`, `Stressed`, or `Outage`.
+4. Build global and seasonal Markov transition matrices.
+5. Estimate steady-state and Bayesian-adjusted outage probabilities.
+6. Generate predictions, plots, dashboards, and an interactive risk map.
 
 ## Repository layout
 
 ```text
 .
-├── config.py
-├── run_pipeline.py
-├── step1_fetch_weather.py
-├── step2_fetch_grid_data.py
-├── step3_classify_states.py
-├── step4_markov_model.py
-├── step5_bayesian_update.py
-├── step6_prediction_engine.py
-├── step7_visualizations.py
-├── step8_map_visualization.py
-├── markov_analysis.m
-├── predict_outage.m
+├── config.py                    # States, thresholds, seasons, and paths
+├── run_pipeline.py              # Main command-line entry point
+├── step1_fetch_weather.py       # NASA POWER data
+├── step2_fetch_grid_data.py     # POSOCO/GRID-INDIA data
+├── step3_classify_states.py     # Stress classification
+├── step4_markov_model.py        # Markov matrices and steady state
+├── step5_bayesian_update.py     # Bayesian calculations
+├── step6_prediction_engine.py   # Prediction logic
+├── step7_visualizations.py      # Python figures
+├── step8_map_visualization.py   # Interactive HTML map
+├── markov_analysis.m            # MATLAB Markov/Bayesian analysis
+├── predict_outage.m             # MATLAB prediction function
 ├── requirements.txt
-├── data/                 # Pipeline input and intermediate CSV files
-├── models/               # Generated model summaries and transition matrices
-├── plots/                # Python plots and interactive map
-├── plots_matlab/         # MATLAB analysis and prediction figures
-└── results/              # Example prediction output
+├── data/                        # Input and intermediate CSV files
+├── models/                      # Generated model files
+├── plots/                       # Python figures and interactive map
+├── plots_matlab/                # MATLAB figures
+└── results/                     # Example prediction JSON files
 ```
 
-## Run the Python pipeline
+Generated Python caches, virtual environments, MATLAB autosave files, and local logs are excluded by `.gitignore`. The supplied datasets and example outputs remain available for reproducibility.
 
-Python 3.10 or later is recommended.
+## Python setup
+
+Run these commands from this directory. Python 3.10 or newer is recommended.
 
 ```powershell
 py -m venv .venv
@@ -56,47 +52,59 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Run the full pipeline (downloads fresh source data):
+## Run the pipeline
+
+Run the complete workflow, including fresh downloads:
 
 ```powershell
 python run_pipeline.py
 ```
 
-Run using the CSV files already in `data/`:
+Use the included CSV files without making network requests:
 
 ```powershell
 python run_pipeline.py --skip-fetch
 ```
 
-Predict for a chosen state and date using the generated models:
+Skip plot generation:
 
 ```powershell
-python run_pipeline.py --predict-only --state "Rajasthan" --date 2024-05-20 --days 30 --temp 45 --rain 0 --wind 10
+python run_pipeline.py --skip-fetch --skip-plots
 ```
 
-The full pipeline writes model files to `models/`, plots and the interactive map to `plots/`, and prediction output to `results/`. The command-line options are also listed by `python run_pipeline.py --help`.
+Run only a prediction after the models have been generated:
 
-### MATLAB
+```powershell
+python run_pipeline.py --predict-only `
+  --state "Rajasthan" --date 2024-05-20 `
+  --days 30 --temp 45 --rain 0 --wind 10
+```
 
-Open `markov_analysis.m` or `predict_outage.m` in MATLAB. For example:
+Run `python run_pipeline.py --help` for all available options. Outputs are written to `models/`, `plots/`, and `results/`.
+
+## MATLAB
+
+Run MATLAB from the project directory after generating `data/grid_states_classified.csv` with Python:
 
 ```matlab
+markov_analysis
 predict_outage('Rajasthan', '2024-05-20', 45, 0, 10, 30)
 ```
 
+MATLAB figures are saved in `plots_matlab/`. The MATLAB scripts expect the `data/` directory to be relative to the current working directory.
+
 ## Data sources
 
-- **Weather:** [NASA POWER](https://power.larc.nasa.gov/), daily weather observations.
-- **Electricity demand:** [POSOCO/GRID-INDIA data](https://robbieandrew.github.io/india/data/POSOCO_data.csv), sourced by the project’s data-fetching script.
+- [NASA POWER](https://power.larc.nasa.gov/) — daily weather observations.
+- [POSOCO/GRID-INDIA demand data](https://robbieandrew.github.io/india/data/POSOCO_data.csv) — electricity demand source used by the fetch script.
 
-The supplied CSVs are retained so the pipeline can be explored without downloading data first. Use `--skip-fetch` to use them. Upstream data can change; verify the source terms and attribution requirements before redistributing or refreshing datasets.
+The included CSV files allow the project to run with `--skip-fetch`. Check upstream licensing, attribution, and availability before redistributing or refreshing the datasets.
 
-## Method and assumptions
+## Assumptions and limitations
 
-The classification combines weather stress and demand stress with weights defined in `config.py` (currently 0.45 and 0.55). Markov transition matrices are estimated from consecutive classified daily states. The Bayesian adjustment uses season-level priors and likelihood assumptions, while the duration model uses state-specific values documented in the prediction code.
+- Weather and load stress are combined using weights in `config.py` (currently 0.45 and 0.55).
+- Markov matrices are estimated from consecutive classified daily states.
+- Bayesian priors, likelihoods, and outage-duration values are illustrative assumptions.
+- Missing data, threshold choices, and changes in upstream datasets can materially change the results.
 
-These are modeling assumptions, not empirically validated outage labels or guarantees. Thresholds, data availability, missing values, and upstream updates can materially affect results. Review the source and assumptions before drawing conclusions.
-
-## Reuse
-
-No license is included. Add a license only after deciding how you want the code and data to be reused, and confirming that you have the right to publish each included dataset.
+The results should be used to understand the implemented probability models, not as validated outage forecasts.
